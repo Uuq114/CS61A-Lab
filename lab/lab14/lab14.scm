@@ -1,0 +1,17 @@
+(define (split-at lst n)
+    (cond ( (= n 0) (cons nil lst) )
+          ( (null? lst) (cons nil nil) )
+          ( else (let (
+              (res (split-at (cdr lst) (- n 1)) ))
+              (cons (cons (car lst) (car res)) (cdr res)))
+          )
+    )
+)
+
+(define (compose-all funcs)
+    (if (= (length funcs) 0)
+        (lambda (x) x)
+        ;(print 66)
+        ((lambda (x) (compose-all (cdr funcs))) ((car funcs) x))
+    )
+)
